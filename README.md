@@ -1,1 +1,1 @@
-Make a mobile application for job hunting. The idea is to make a swipe function where candidates and recruiters can swipe left/right to choose their options. Other features such as a messaging system will be included so that the matched parties can communicate with each other.
+Make a mobile application for job hunting. The idea is to make a swipe function where candidates and recruiters can swipe left/right to choose their options.
