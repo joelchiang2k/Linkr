@@ -23,6 +23,7 @@ jobs:
 
       - name: Build Expo App
         run: expo build:android --release-channel build-1-${{ github.run_id }}
+        working-directory: ./frontend/linkr
 
       - name: Archive Build
         uses: actions/upload-artifact@v3
@@ -51,6 +52,7 @@ jobs:
         
       - name: Build Expo App
         run: expo build:android --release-channel build-2-${{ github.run_id }}
+        working-directory: ./frontend/linkr
 
       - name: Archive Build
         uses: actions/upload-artifact@v3
@@ -72,13 +74,13 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: android-app-1
-          path: frontend/linkr/build-1
+          path: ./frontend/linkr/build-1
 
       - name: Download Artifacts
         uses: actions/download-artifact@v3
         with:
           name: android-app-2
-          path: frontend/linkr/build-2
+          path: ./frontend/linkr/build-2
 
       - name: Compare Artifacts
         run: diffoscope ~/build-1/app-release.apk ~/build-2/app-release.apk > diffoscope.log
