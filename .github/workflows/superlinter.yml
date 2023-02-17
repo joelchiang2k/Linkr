@@ -1,4 +1,4 @@
-name: Super-Linter
+name: Expo build
 
 on: [push, pull_request]
 
