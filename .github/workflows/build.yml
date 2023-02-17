@@ -19,6 +19,7 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
+        working-directory: ./Linkr/frontend/linkr/package.json
 
       - name: Build Expo App
         run: expo build:android --release-channel build-1-${{ github.run_id }}
@@ -46,6 +47,7 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
+        working-directory: working-directory: ./Linkr/frontend/linkr/package.json
 
       - name: Build Expo App
         run: expo build:android --release-channel build-2-${{ github.run_id }}
