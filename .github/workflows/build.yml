@@ -1,6 +1,6 @@
-name: Expo build1
+name: Expo build
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build-1:
