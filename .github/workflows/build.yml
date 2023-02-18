@@ -23,11 +23,11 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
-        working-directory: ./frontend/linkr
+        working-directory: ./frontend/project
 
       - name: Build Expo App
         run: eas build -p android --release-channel build-1-${{ github.run_id }}
-        working-directory: ./frontend/linkr
+        working-directory: ./frontend/project
 
       - name: Archive Build
         uses: actions/upload-artifact@v3
@@ -52,11 +52,11 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
-        working-directory: ./frontend/linkr
+        working-directory: ./frontend/project
         
       - name: Build Expo App
         run: eas build -p android --release-channel build-2-${{ github.run_id }}
-        working-directory: ./frontend/linkr
+        working-directory: ./frontend/project
 
       - name: Archive Build
         uses: actions/upload-artifact@v3
