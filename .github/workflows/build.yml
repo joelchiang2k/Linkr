@@ -20,6 +20,9 @@ jobs:
         
       - name: Install Expo CLI
         run: npm install --global expo-cli
+      
+      - name: Install eas
+        run: npm install -g eas-cli
 
       - name: Install Dependencies
         run: npm install
