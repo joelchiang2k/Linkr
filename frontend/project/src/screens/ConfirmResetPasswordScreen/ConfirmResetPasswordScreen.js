@@ -3,8 +3,10 @@ import React, {useState} from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput'
 import CustomButton from '../../components/CustomButton/CustomButton'
 import { useNavigation } from '@react-navigation/native'
+import { useForm } from 'react-hook-form'
 
 const ConfirmResetPasswordScreen = () => {
+  const {control, handleSubmit} = useForm();
   const [code, setCode] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const navigation = useNavigation();
@@ -24,19 +26,33 @@ const ConfirmResetPasswordScreen = () => {
         <View style={styles.root}>
         <Text style={styles.title}>Reset your password</Text>
 
-        <CustomInput 
+        <CustomInput
+            name="code" 
             placeholder="Code" 
-            value={code}
-            setValue={setCode}
+            control={control}
+            rules={{
+                required: 'Code is required'
+            }}
         />
 
-        <CustomInput 
+        <CustomInput
+            name="password" 
             placeholder="Enter your new password" 
-            value={newPassword}
-            setValue={setNewPassword}
+            control={control}
+            secureTextEntry={true}
+            rules={{required: 'Password is required', 
+                    minLength: {
+                      value: 8, 
+                      message: 'Password should be at least 8 characters long',
+                    },
+                    maxLength: {
+                      value: 24,
+                      message: 'Password should be max 24 characters long',
+                    }
+                  }}
         />  
 
-        <CustomButton text="Submit" onPress={onSubmitPressed}/>
+        <CustomButton text="Submit" onPress={handleSubmit(onSubmitPressed)}/>
         
         <CustomButton 
             text="Back to Sign in" 
