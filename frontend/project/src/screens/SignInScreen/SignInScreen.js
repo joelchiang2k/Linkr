@@ -19,13 +19,15 @@ const SignInScreen = () => {
     //validate user
     console.log(data)
     axios({
-      method:'post',
+      method: `post`,
       params: { username: data.username,
-                password: data.password},
-                url: `http:localhost:8080/login`}).then((response) => {
-                  console.log(response.data)
-                  navigation.navigate('HomeScreen', { responseData: response.data })
-                })
+      password: data.password},
+      url: `http://localhost:8080/login`
+    }).then((response) => {
+      console.log(response.data);
+      navigation.navigate('HomeScreen', { responseData: response.data })
+
+    });
   }
   
   const onForgotPasswordPressed = () => {
