@@ -5,6 +5,7 @@ import CustomInput from '../../components/CustomInput/CustomInput'
 import CustomButton from '../../components/CustomButton/CustomButton'
 import { useNavigation } from '@react-navigation/native'
 import {useForm, Controller} from 'react-hook-form'
+import axios from 'axios'
 
 const SignInScreen = () => {
   const [username, setUsername] = useState('')
@@ -17,7 +18,14 @@ const SignInScreen = () => {
   const onSignInPressed = (data) => {
     //validate user
     console.log(data)
-    navigation.navigate('HomeScreen')
+    axios({
+      method:'post',
+      params: { username: data.username,
+                password: data.password},
+                url: `http:localhost:8080/login`}).then((response) => {
+                  console.log(response.data)
+                  navigation.navigate('HomeScreen', { responseData: response.data })
+                })
   }
   
   const onForgotPasswordPressed = () => {
