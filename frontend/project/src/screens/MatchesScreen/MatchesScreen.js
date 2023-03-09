@@ -9,7 +9,7 @@ const MatchesScreen = () => {
     return (
       <SafeAreaView style={styles.root}>
         <View style={styles.container}>
-          <Text style={{fontWeight: 'bold', fontSize: 24, color: '#F63A6E'}}>
+          <Text style={{fontWeight: 'bold', fontSize: 24, color: '#0096FF'}}>
             New Matches
           </Text>
           <View style={styles.users}>
@@ -52,7 +52,7 @@ const MatchesScreen = () => {
   
       borderWidth: 2,
       padding: 3,
-      borderColor: '#F63A6E',
+      borderColor: '#0096FF',
     },
     image: {
       width: '100%',

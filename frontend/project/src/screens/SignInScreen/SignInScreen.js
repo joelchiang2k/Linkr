@@ -17,6 +17,19 @@ const SignInScreen = () => {
   const onSignInPressed = (data) => {
     //validate user
     console.log(data)
+    // axios({
+    //   method: `post`,
+    //   params: { username: data.username,
+    //   password: data.password},
+    //   url: `http://10.186.79.202:8080/login`
+    // })
+    // .then((response) => {
+    //   console.log(response.data);
+    //   navigation.navigate('HomeScreen', { responseData: response.data })
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    // });
     navigation.navigate('HomeScreen')
   }
   
@@ -65,6 +78,7 @@ const styles = StyleSheet.create({
     root: {
         alignItems: 'center',
         padding: 20,
+        flex: 1,
     },
     logo: {
         width: '70%',

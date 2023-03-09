@@ -21,7 +21,6 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.root}>
        <View style={styles.container}>
-        
         <AnimatedStack
           data={users}
           renderItem={({item}) => <Card user={item} />}

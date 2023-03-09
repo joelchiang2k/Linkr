@@ -4,7 +4,8 @@ import Fontisto from 'react-native-vector-icons/Fontisto'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
+
 
 const NavigationBar = () => {
   const navigation = useNavigation();
@@ -12,9 +13,11 @@ const NavigationBar = () => {
   const color = '#b5b5b5';
   const activeColor = '#0096FF'
   const goldColor = '#D4AF37'
+  
 
   return (
-    <View style={styles.bottomNavigation}>
+    // showNavigationBar && (
+        <View style={styles.bottomNavigation}>
           <Pressable onPress={() => {setActiveScreen('HOME'); navigation.navigate('HomeScreen')}}>
             <Fontisto name="tinder" size={30} color={activeScreen == 'HOME' ? activeColor : color} />
           </Pressable>
@@ -27,9 +30,11 @@ const NavigationBar = () => {
           <Pressable onPress={() => setActiveScreen('USER')}>
             <FontAwesome name="user" size={30} color={activeScreen == 'USER' ? activeColor : color} />
           </Pressable>
-    </View>
+         </View>
+    )
+    
 
-  )
+  
 }
 
 const styles = StyleSheet.create({
@@ -37,7 +42,7 @@ const styles = StyleSheet.create({
       flexDirection:'row',
       justifyContent: 'space-around',
       width: '100%',
-      padding: 10,
+      padding: 20,
     },
   });
 

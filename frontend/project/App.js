@@ -14,7 +14,6 @@ export default function App() {
   
     <View style={styles.container}>
         <Navigation />
-        {/* <NavigationBar /> */}
     </View>
 
   );

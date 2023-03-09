@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer} from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import ConfirmEmailScreen from '../screens/ConfirmEmailScreen';
 import ConfirmResetPasswordScreen from '../screens/ConfirmResetPasswordScreen';
@@ -9,10 +9,11 @@ import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import HomeScreen from '../screens/HomeScreen'
 import MatchesScreen from '../screens/MatchesScreen';
+import NavigationBar from '../components/NavigationBar';
 
 const Stack = createStackNavigator();
-
 const Navigation = () => {
+
   return (
     <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
@@ -24,6 +25,7 @@ const Navigation = () => {
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="MatchesScreen" component={MatchesScreen} />
         </Stack.Navigator>
+      <NavigationBar />
     </NavigationContainer>
   )
 }
