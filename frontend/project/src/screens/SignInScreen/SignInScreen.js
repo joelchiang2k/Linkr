@@ -22,11 +22,14 @@ const SignInScreen = () => {
       method: `post`,
       params: { username: data.username,
       password: data.password},
-      url: `http://localhost:8080/login`
-    }).then((response) => {
+      url: `http://10.186.79.202:8080/login`
+    })
+    .then((response) => {
       console.log(response.data);
       navigation.navigate('HomeScreen', { responseData: response.data })
-
+    })
+    .catch((error) => {
+      console.log(error);
     });
   }
   
