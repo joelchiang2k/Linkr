@@ -18,24 +18,6 @@ const Card = (props) => {
             <View style={styles.cardInner}>
                 <Text style={styles.name}>{name}</Text>
                 <Text style={styles.bio}>{bio}</Text>
-                
-              <View style={styles.icons}>
-                <View style={{...styles.button, borderWidth: 1, borderColor: '#FBD88B'}}>
-                  <FontAwesome name="undo" size={30} color='#FBD88B' />
-                </View>
-                <View style={{...styles.button, borderWidth: 1, borderColor: '#F76C6B'}}>
-                  <Entypo name="cross" size={30} color='#F76C6B' />
-                </View>
-                <View style={{...styles.button, borderWidth: 1, borderColor: '#3AB4CC'}}>
-                  <FontAwesome name="star" size={30} color='#3AB4CC' />
-                </View>
-                <View style={{...styles.button, borderWidth: 1, borderColor: '#4FCC94'}}>
-                  <FontAwesome name="heart" size={30} color='#4FCC94' />
-                </View>
-                <View style={{...styles.button, borderWidth: 1, borderColor: '#A65CD2'}}>
-                  <Ionicons name="flash" size={30} color='#A65CD2' />
-                </View>  
-              </View>
             </View>
         </ImageBackground>
     </View>

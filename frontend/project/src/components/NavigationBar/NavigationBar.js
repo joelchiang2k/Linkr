@@ -30,7 +30,7 @@ const NavigationBar = ({currentPage}) => {
           <Pressable onPress={() => {setActiveScreen('CHAT'); navigation.navigate('MatchesScreen')}}>
             <Ionicons name="ios-chatbubbles" size={30} color={activeScreen == 'CHAT' ? activeColor : color} />
           </Pressable>
-          <Pressable onPress={() => setActiveScreen('USER')}>
+          <Pressable onPress={() => {setActiveScreen('USER'); navigation.navigate('ProfileScreen')}}>
             <FontAwesome name="user" size={30} color={activeScreen == 'USER' ? activeColor : color} />
           </Pressable>
          </View>

@@ -10,6 +10,7 @@ import SignUpScreen from '../screens/SignUpScreen';
 import HomeScreen from '../screens/HomeScreen'
 import MatchesScreen from '../screens/MatchesScreen';
 import NavigationBar from '../components/NavigationBar';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Stack = createStackNavigator();
 const Navigation = () => {
@@ -41,6 +42,7 @@ const Navigation = () => {
             <Stack.Screen name="NewPassword" component={ConfirmResetPasswordScreen} />
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="MatchesScreen" component={MatchesScreen} />
+            <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
         </Stack.Navigator>
         {<NavigationBar currentPage={currentPage} />}
     </NavigationContainer>

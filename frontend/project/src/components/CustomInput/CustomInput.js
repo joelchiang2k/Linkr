@@ -13,9 +13,9 @@ const CustomInput = ({control, name, rules = {}, placeholder, secureTextEntry}) 
         <>
           <View style={[styles.container, {borderColor: error ? 'red' : '#e8e8e8'}]}>
             <TextInput 
-              value={value} 
+              value={value}
               onChangeText={onChange} 
-              onBlur={onBlur} 
+              onBlur={onBlur}
               placeholder={placeholder}
               style={styles.input} 
               secureTextEntry={secureTextEntry}
@@ -41,7 +41,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         marginVertical: 5,
     },
-    input: {},
+    input: {
+      flex: 1,
+    },
 })
 
 export default CustomInput
