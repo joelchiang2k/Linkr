@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
-import React from 'react'
-import { NavigationContainer} from '@react-navigation/native'
+import React, {useState, useEffect} from 'react'
+import { NavigationContainer, useNavigationContainerRef} from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import ConfirmEmailScreen from '../screens/ConfirmEmailScreen';
 import ConfirmResetPasswordScreen from '../screens/ConfirmResetPasswordScreen';
@@ -13,9 +13,26 @@ import NavigationBar from '../components/NavigationBar';
 
 const Stack = createStackNavigator();
 const Navigation = () => {
+  const navigationRef = useNavigationContainerRef();
+  const [currentPage, setCurrentPage] = useState('HomeScreen');
+
+  const handleNavigationReady = () => {
+    const currentRoute = navigationRef.getCurrentRoute();
+    console.log("currentRoute: ", currentRoute)
+    setCurrentPage(currentRoute.name);
+  };
+
+  useEffect(() => {
+    const unsubscribe = navigationRef.addListener('state', () => {
+      const currentRoute = navigationRef.getCurrentRoute();
+      setCurrentPage(currentRoute.name);
+    });
+
+    return unsubscribe;
+  }, [navigationRef]);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef} onReady={handleNavigationReady}>
         <Stack.Navigator screenOptions={{headerShown: false}}>
             <Stack.Screen name="SignIn" component={SignInScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
@@ -25,7 +42,7 @@ const Navigation = () => {
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="MatchesScreen" component={MatchesScreen} />
         </Stack.Navigator>
-      <NavigationBar />
+        {<NavigationBar currentPage={currentPage} />}
     </NavigationContainer>
   )
 }

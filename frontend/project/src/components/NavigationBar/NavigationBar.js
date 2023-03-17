@@ -4,19 +4,22 @@ import Fontisto from 'react-native-vector-icons/Fontisto'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useNavigation, useRoute, useNavigationContainerRef } from '@react-navigation/native'
 
 
-const NavigationBar = () => {
+const NavigationBar = ({currentPage}) => {
   const navigation = useNavigation();
-  const [activeScreen, setActiveScreen] = useState('HOME')
+  const [activeScreen, setActiveScreen] = useState('HOME');
   const color = '#b5b5b5';
   const activeColor = '#0096FF'
   const goldColor = '#D4AF37'
-  
+  console.log("currentPage:", currentPage)
+  if(currentPage == 'SignIn' || currentPage == 'SignUp' || currentPage == 'ConfirmEmail' || currentPage == 'ForgotPassword' || currentPage == 'NewPassword'){
+    return null
+  }
 
   return (
-    // showNavigationBar && (
+    (
         <View style={styles.bottomNavigation}>
           <Pressable onPress={() => {setActiveScreen('HOME'); navigation.navigate('HomeScreen')}}>
             <Fontisto name="tinder" size={30} color={activeScreen == 'HOME' ? activeColor : color} />
@@ -31,6 +34,7 @@ const NavigationBar = () => {
             <FontAwesome name="user" size={30} color={activeScreen == 'USER' ? activeColor : color} />
           </Pressable>
          </View>
+    )
     )
     
 
