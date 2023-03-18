@@ -1,9 +1,13 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native'
 import React, {useState} from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput'
 import CustomButton from '../../components/CustomButton/CustomButton'
 import { useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
+import axios from 'axios';
+
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+
 
 const ForgotPasswordScreen = () => {
   const {control, handleSubmit} = useForm();
@@ -16,9 +20,30 @@ const ForgotPasswordScreen = () => {
   }
 
   const onSendPressed = (data) => {
-    console.log(data)
-    navigation.navigate('NewPassword')
+    console.log(data);
+  
+    axios({
+      method: 'post',
+      params: {
+        username: data.username,
+      },
+      url: 'http://192.168.84.43:8080/forgetPwd',
+    })
+      .then((response) => {
+        console.log(response.data);
+        Alert.alert('Success', response.data, [
+          { text: 'OK', onPress: () => navigation.navigate('NewPassword', { email: data.username }) },
+        ]);
+      })
+      .catch((error) => {
+        if (error.response.status === 400) {
+          Alert.alert('Error', error.response.data);
+        } else {
+          console.log(error);
+        }
+      });
   }
+  
 
  
   return (
@@ -28,18 +53,15 @@ const ForgotPasswordScreen = () => {
 
         <CustomInput
             name="username" 
-            placeholder="Username" 
+            placeholder="Email" 
             control={control}
-            rules={{required: 'Username is required', 
-                    minLength: {
-                      value: 3, 
-                      message: 'Username should be at least 3 characters long',
-                    },
-                    maxLength: {
-                      value: 24,
-                      message: 'Username should be max 24 characters long',
-                    }
-                  }} 
+            rules={{
+              required: 'Email is required',
+              pattern: {
+               value: EMAIL_REGEX,
+               message: 'Email is invalid',
+              }
+            }}
         />
 
         <CustomButton text="Send" onPress={handleSubmit(onSendPressed)}/>

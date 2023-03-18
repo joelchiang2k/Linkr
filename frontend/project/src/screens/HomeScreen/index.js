@@ -4,13 +4,26 @@ import { Pressable, StyleSheet, Text, useWindowDimensions, View, Image } from 'r
 import users from '../../../assets/data/users'
 import AnimatedStack from '../../components/AnimatedStack';
 import Card from '../../components/Card/Card'
+import axios from 'axios'
 
 
 
 export default function HomeScreen() {
 
   const onSwipeLeft = (user) => {
-    console.warn("swipe left", user.name)
+    axios({
+      method: `post`,
+      params: { username: user.name
+      },
+      url: `http://10.0.0.238:8080/swipeleft`
+    })
+    .then((response) => {
+      console.log(response.data);
+      console.warn("swipe left", user.name)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   const onSwipeRight = (user) => {

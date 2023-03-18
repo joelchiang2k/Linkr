@@ -1,10 +1,11 @@
-import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView, TextInput } from 'react-native'
+import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView, TextInput, Alert } from 'react-native';
 import Logo from '../../../assets/images/link.png'
 import React, {useState} from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput'
 import CustomButton from '../../components/CustomButton/CustomButton'
 import { useNavigation } from '@react-navigation/native'
 import {useForm, Controller} from 'react-hook-form'
+import axios from 'axios'
 
 const SignInScreen = () => {
   const [username, setUsername] = useState('')
@@ -15,10 +16,39 @@ const SignInScreen = () => {
   console.log(errors)
   
   const onSignInPressed = (data) => {
-    //validate user
-    console.log(data)
-    navigation.navigate('HomeScreen')
+    axios({
+        method: `post`,
+        params: { 
+            username: data.username,
+            password: data.password
+        },
+        url: `http://192.168.84.43:8080/login`
+    })
+    .then((response) => {
+        console.log(response.data);
+        if (!response.data.authenticator) {
+          Alert.alert("Authentication Failed", "Please validate your email address.", [
+            {
+              text: "OK",
+              onPress: () => navigation.navigate('ConfirmEmail', { responseData: { email: data.username } }),
+            },
+          ]);
+        } else {
+          Alert.alert("Success", "Login successful", [
+            { text: "OK", onPress: () => navigation.navigate('HomeScreen', { responseData: response.data }) },
+          ]);
+        }
+    })
+    .catch((error) => {
+        if (error.response.status === 400) {
+            Alert.alert("Error", "Invalid username or password");
+        } else {
+            console.log(error);
+        }
+    });
   }
+  
+    
   
   const onForgotPasswordPressed = () => {
     navigation.navigate('ForgotPassword')
@@ -38,7 +68,7 @@ const SignInScreen = () => {
 
         <CustomInput 
             name="username"
-            placeholder="Username" 
+            placeholder="Email" 
             control={control}
             rules={{required: 'Username is required'}}
         />

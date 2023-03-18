@@ -1,0 +1,16 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://purdueseniordesign:PurdueDesign23@designlab.2euxj72.mongodb.net/test
+      database: test
+  mail:
+    host: smtp.naver.com
+    port: 587
+    username: purdueseniordesign@naver.com
+    password: Purdue2023!
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
