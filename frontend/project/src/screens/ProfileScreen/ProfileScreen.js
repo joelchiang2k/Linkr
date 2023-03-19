@@ -17,7 +17,8 @@ const ProfileScreen = () => {
     navigation.navigate('SignIn')
   }
 
-  const onSaveChangesPressed = () => {
+  const onSaveChangesPressed = (data) => {
+    console.log(data)
     console.warn("Changes saved")
   }
   
@@ -46,37 +47,57 @@ const ProfileScreen = () => {
       <View>
         <Text style={styles.personalInfo}>ABOUT ME</Text>
         <CustomInput 
-          name="About"
-          control={control} 
+          name="bio"
+          control={control}
+          rules={{maxLength: {
+            value: 100,
+            message: 'Cannot exceed 100 characters.',
+          }}}
           />
         <Text style={styles.personalInfo}>JOB TITLE</Text>
         <CustomInput 
-          name="JobTitle"
+          name="title"
           placeholder="Add job title"
-          control={control} 
+          control={control}
+          rules={{maxLength: {
+            value: 20,
+            message: 'Cannot exceed 20 characters.',
+          }}}
           />
         <Text style={styles.personalInfo}>COMPANY</Text>
         <CustomInput 
-          name="Company"
+          name="company"
           placeholder="Add company"
-          control={control} 
+          control={control}
+          rules={{maxLength: {
+            value: 20,
+            message: 'Cannot exceed 20 characters.',
+          }}}
           />
         <Text style={styles.personalInfo}>EDUCATION</Text>
         <CustomInput 
-          name="Education"
+          name="education"
           placeholder="Add education"
-          control={control} 
+          control={control}
+          rules={{maxLength: {
+            value: 20,
+            message: 'Cannot exceed 20 characters.',
+          }}} 
           />
         <Text style={styles.personalInfo}>LOCATION</Text>
         <CustomInput 
-          name="Location"
+          name="location"
           placeholder="Add location"
-          control={control} 
+          control={control}
+          rules={{maxLength: {
+            value: 20,
+            message: 'Cannot exceed 20 characters.',
+          }}} 
           />
       </View>
       
       <View style={styles.container}>
-        <CustomButton text="Save Changes" onPress={onSaveChangesPressed} style={styles.saveChanges}/>
+        <CustomButton text="Save Changes" onPress={handleSubmit(onSaveChangesPressed)} style={styles.saveChanges}/>
         <CustomButton text="Sign Out" onPress={onSignOutPressed}/>
       </View>
 
@@ -90,6 +111,9 @@ const styles = StyleSheet.create({
     width:'100%',
     backgroundColor:'#000',
     height: 150,
+  },
+  input:{
+    height: 100,
   },
   user: {
     flex: 1,

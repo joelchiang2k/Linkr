@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ImageBackground } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, Image } from 'react-native'
 import React from 'react'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -7,19 +7,17 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Entypo from 'react-native-vector-icons/Entypo'
 
 const Card = (props) => {
-  const{image, bio, name} = props.user;
+  const{image, bio, name, location, company, logo, title} = props.user;
   return (
     <View style={styles.card}>
-        <ImageBackground
-            source={{
-                uri: image,
-            }}
-            style={styles.image}>
-            <View style={styles.cardInner}>
-                <Text style={styles.name}>{name}</Text>
-                <Text style={styles.bio}>{bio}</Text>
-            </View>
+        <ImageBackground source={{ uri: image,}} style={styles.image}>
+            <Image source={{uri: logo,}} style={styles.logo}/>
         </ImageBackground>
+        <View style={styles.cardInner}>
+                <Text style={styles.name}>{name}</Text>
+                <Text style={styles.title}>{title} @ {company}</Text>
+                <Text style={styles.bio}>{bio}</Text>
+        </View>
     </View>
   )
 }
@@ -27,11 +25,10 @@ const Card = (props) => {
 const styles = StyleSheet.create({
     card: {
       width: '108%',
-      height: '120%',
+      height: '130%',
       borderRadius: 10,
       backgroundColor: '#fefefe',
       shadowColor: "#000",
-      backgroundColor: '#fefefe',
       shadowOffset: {
 	    width: 0,
 	    height: 9,
@@ -41,32 +38,46 @@ const styles = StyleSheet.create({
 
       elevation: 19,
     },
+
+    logo: {
+      width: 100,
+      height: 100,
+      position: 'absolute',
+      bottom: -50,
+      right: 20,
+      backgroundColor: 'white',
+      borderRadius: 50,
+      borderColor: 'grey',
+      borderWidth: 1,
+    },
+
     image: {
       width: '100%',
-      height: '100%',
+      height: 300,
       borderRadius: 10,
-      overflow: 'hidden',
-  
-      justifyContent: 'flex-end',
+      backgroundColor:'blue',
     },
     cardInner: {
       padding: 20,
+      justifyContent:'flex-end',
     },
     name: {
       fontSize: 30,
-      color: 'white',
+      color: 'black',
       fontWeight: 'bold',
+      padding: 10,
     },
     bio: {
       fontSize: 18,
-      color: 'white',
+      color: 'grey',
       lineHeight: 25,
-    },
-    icons: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      width: '100%',
       padding: 10,
+    },
+    title: {
+      fontSize: 15,
+      padding: 10,
+      fontWeight:'bold',
+      color: '#36454F',
     },
     button: {
       backgroundColor: 'transparent',
