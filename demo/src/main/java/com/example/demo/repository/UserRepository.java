@@ -11,7 +11,11 @@ public interface UserRepository extends MongoRepository<User, String> {
     User findItemByName(String id);
 
     @Query(value = "{type:'?0'}")
-    List<User> findAll(User.Type type);
+    List<User> findAllType(String userType);
 
+    @Query("{email:'?0'}")
+    User findUserByEmail(String email);
+
+    User findUserByUsername(String username);
     public long count();
 }

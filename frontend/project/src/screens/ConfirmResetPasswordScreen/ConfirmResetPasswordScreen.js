@@ -1,24 +1,52 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native'
 import React, {useState} from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput'
 import CustomButton from '../../components/CustomButton/CustomButton'
 import { useNavigation } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
+import axios from 'axios';
 
-const ConfirmResetPasswordScreen = () => {
+const ConfirmResetPasswordScreen = ({ route }) => {
   const {control, handleSubmit} = useForm();
   const [code, setCode] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const navigation = useNavigation();
+  const email = route.params.email;
+  console.log('Email:', email);
+
+
   
  
   const onSignInPressed = () => {
     navigation.navigate('SignIn')
   }
 
-  const onSubmitPressed = () => {
-    navigation.navigate('HomeScreen')
+  const onSubmitPressed = (data) => {
+    axios({
+      method: 'post',
+      params: {
+        email: email,
+        code: data.code,
+        password: data.password,
+      },
+      url: 'http://192.168.84.43:8080/resetPwd',
+    })
+      .then((response) => {
+        console.log(response.data);
+        Alert.alert('Success', 'Password reset successfully', [
+          { text: 'OK', onPress: () => navigation.navigate('HomeScreen') },
+        ]);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 400) {
+          Alert.alert('Error', error.response.data);
+        } else {
+          console.log(error);
+        }
+      });
   }
+  
+  
 
  
   return (
@@ -52,7 +80,8 @@ const ConfirmResetPasswordScreen = () => {
                   }}
         />  
 
-        <CustomButton text="Submit" onPress={handleSubmit(onSubmitPressed)}/>
+        <CustomButton text="Submit" onPress={handleSubmit(onSubmitPressed)} />
+
         
         <CustomButton 
             text="Back to Sign in" 

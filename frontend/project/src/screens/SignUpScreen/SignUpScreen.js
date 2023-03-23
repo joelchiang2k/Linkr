@@ -1,23 +1,50 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { Picker } from '@react-native-picker/picker';
 import React, {useState} from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput'
 import CustomButton from '../../components/CustomButton/CustomButton'
 import { useNavigation } from '@react-navigation/native'
 import {useForm} from 'react-hook-form'
+import axios from 'axios';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
 const SignUpScreen = () => {
-  const {control, handleSubmit, watch} = useForm();
+  const { control, handleSubmit, watch, setValue } = useForm();
   const pwd = watch('password')
   const navigation = useNavigation();
+  const [selectedValue, setSelectedValue] = useState(''); // add state for selected value
+  const [selectedUniversity, setSelectedUniversity] = useState('');
+  const [userTypeError, setUserTypeError] = useState('');
+
+  const fillRandomData = () => {
+    setValue('username', 'testuser');
+    setValue('email', 'testuser@example.com');
+    setValue('password', 'Test1234');
+    setValue('password-repeat', 'Test1234');
+    setSelectedValue('student');
+    setSelectedUniversity('Purdue');
+    setValue('gpa', '3.5');
+    // Add any other fields you want to fill with random or predefined data
+  };
+
+
+
 
   const onSignInPressed = () => {
     navigation.navigate('SignIn')
   }
   
-  const onRegisterPressed = () => {
-    navigation.navigate('ConfirmEmail')
+  const onRegisterPressed = (data) => {
+    if (selectedValue === '') {
+      setUserTypeError('User type is required');
+    } else {
+      setUserTypeError('');
+      
+      console.log(data); // You can access form data here
+      sendDataToBackend(data);
+      //navigation.navigate('ConfirmEmail');
+    }
   }
 
   const onTermsOfUsePressed = () => {
@@ -27,6 +54,30 @@ const SignUpScreen = () => {
   const onPrivacyPressed = () => {
     console.warn("sign up")
   }
+
+  const sendDataToBackend = async (data) => {
+    try {
+      const response = await axios.post('http://192.168.84.43:8080/signup', {
+        ...data,
+        userType: selectedValue.toUpperCase(),
+        school: selectedValue === 'student' ? selectedUniversity.toUpperCase() : null,
+        companyName: selectedValue === 'recruiter' ? data.companyName.toUpperCase() : null,
+      });
+  
+      console.log(response.data);
+      navigation.navigate('ConfirmEmail', { responseData: { email: response.data } });
+  
+    } catch (error) {
+      //console.error('Error:', error);
+      // handle errors, e.g., show an error message
+      if (error.response && error.response.status === 400) {
+        alert(error.response.data);
+      } else {
+        // handle other errors
+      }
+    }
+  };
+  
   return (
     <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 300}}>
         <View style={styles.root}>
@@ -85,7 +136,73 @@ const SignUpScreen = () => {
             }}
         />
 
-        <CustomButton text="Register" onPress={handleSubmit(onRegisterPressed)}/>
+        <Picker
+          selectedValue={selectedValue}
+          onValueChange={(itemValue) => {
+            setSelectedValue(itemValue);
+            setUserTypeError(itemValue === '' ? 'User type is required' : '');
+            if (itemValue === 'student' && selectedUniversity === '') {
+              setSelectedUniversity('purdue');
+            }
+          }}
+          style={{ width: '100%', marginBottom: 20 }}
+        >
+
+          <Picker.Item label="Select User Type" value="" />
+          <Picker.Item label="Student" value="student" />
+          <Picker.Item label="Recruiter" value="recruiter" />
+        </Picker>
+        {userTypeError !== '' && <Text style={styles.errorText}>{userTypeError}</Text>}
+
+        {selectedValue === 'recruiter' && (
+          <CustomInput
+            name="companyName"
+            placeholder="Company Name"
+            control={control}
+            rules={{ required: 'Company name is required' }}
+          />
+        )}
+
+        {selectedValue === 'student' && (
+          <>
+            <Picker
+              selectedValue={selectedUniversity}
+              onValueChange={(itemValue) => setSelectedUniversity(itemValue)}
+              style={{ width: '100%', marginBottom: 20 }}
+            >
+
+              <Picker.Item label="Purdue" value="purdue" />
+              <Picker.Item label="Virginia Tech" value="virginia_tech" />
+              <Picker.Item label="U of Chicago" value="u_of_chicago" />
+            </Picker>
+            <CustomInput
+              name="gpa"
+              placeholder="GPA"
+              control={control}
+              keyboardType="numeric"
+              rules={{
+                required: 'GPA is required',
+                min: {
+                  value: 0,
+                  message: 'GPA must be between 0 and 4.0',
+                },
+                max: {
+                  value: 4,
+                  message: 'GPA must be between 0 and 4.0',
+                },
+              }}
+            />
+          </>
+        )}
+
+        <CustomButton text="Register" onPress={handleSubmit(onRegisterPressed)} />
+        <View style={styles.randomDataButtonContainer}>
+          <TouchableOpacity onPress={fillRandomData} style={styles.randomDataButton}>
+            <Text style={styles.randomDataButtonText}>Fill with random data</Text>
+          </TouchableOpacity>
+        </View>
+
+
 
         <Text style={styles.text}>By registering, you confirm that you accept our{' '}
             <Text style={styles.link} onPress={onTermsOfUsePressed}>Terms of Use</Text> and 
@@ -115,7 +232,11 @@ const styles = StyleSheet.create({
     },
     link: {
         color: '#FDB075',
-    }
-})
+    },
+    errorText: {
+      color: 'red',
+      marginBottom: 10,
+    },
+  });
 
 export default SignUpScreen;
