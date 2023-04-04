@@ -5,7 +5,7 @@ import CustomInput from '../../components/CustomInput/CustomInput'
 import CustomButton from '../../components/CustomButton/CustomButton'
 import { useNavigation } from '@react-navigation/native'
 import {useForm, Controller} from 'react-hook-form'
-import axios from 'axios'
+
 
 const SignInScreen = () => {
   const [username, setUsername] = useState('')
