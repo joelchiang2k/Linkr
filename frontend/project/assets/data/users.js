@@ -20,13 +20,13 @@ export default [
       image:
         'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/elon.png',
       bio: 'Computer Engineering student looking for full-time/part-time job opportunities.',
-      title: 'Tesla CEO',
-      company: 'Tesla',
+      title: 'Student',
+      company: 'Purdue University',
       location: 'Boston, MA',
       logo:'https://1000logos.net/wp-content/uploads/2018/02/Logo-Tesla.jpg',
       post: 'https://www.africau.edu/images/default/sample.pdf',
       role: 'Embedded Systems Engineer',
-      authorization: 'Sponsorship available',
+      authorization: 'Sponsorship Needed',
     },
 
     {
