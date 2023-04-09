@@ -9,6 +9,9 @@ export default [
       company: 'Microsoft',
       location: 'Seattle, WA',
       logo: 'https://agsol.com/wp-content/uploads/2018/09/new-microsoft-logo-SIZED-SQUARE.jpg',
+      post: 'https://www.africau.edu/images/default/sample.pdf',
+      role: 'Software Engineer Entry Level',
+      authorization: 'No sponsorship available',
     },
 
     {
@@ -21,6 +24,9 @@ export default [
       company: 'Tesla',
       location: 'Boston, MA',
       logo:'https://1000logos.net/wp-content/uploads/2018/02/Logo-Tesla.jpg',
+      post: 'https://www.africau.edu/images/default/sample.pdf',
+      role: 'Embedded Systems Engineer',
+      authorization: 'Sponsorship available',
     },
 
     {
