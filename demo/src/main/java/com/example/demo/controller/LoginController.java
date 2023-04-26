@@ -30,12 +30,32 @@ public class LoginController {
                                                      @RequestParam(value = "password") String password) {
         User user = userRepository.findUserByEmail(email);
 
+        String userType = user.getUserType();
+        String passType = "";
+        if (userType.equals("RECRUITER")){
+            passType = "STUDENT";
+        }else {
+            passType = "RECRUITER";
+        }
+
+        List <User> testPhase =userRepository.findAllType(passType);
+
+        System.out.println("Here is the phase");
+        for (User currentUser : testPhase) {
+            System.out.println("Below");
+            System.out.println(currentUser);
+        }
+
         if (passwordEncoder.matches(password, user.getPassword())) {
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Login Attempt detected from Spring-Boot backend");
             response.put("authenticator", user.isAuthentication());
+            response.put("ListPeople", testPhase);
+
+            System.out.println("success");
             return ResponseEntity.ok(response);
         } else {
+            System.out.println("fail");
             return ResponseEntity.badRequest().body(Collections.singletonMap("message", "Invalid username or password"));
         }
     }
