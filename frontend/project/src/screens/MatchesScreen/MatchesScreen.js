@@ -3,6 +3,7 @@ import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import NavigationBar from '../../components/NavigationBar';
 import users from '../../../assets/data/users'
+import ChatList from '../../components/ChatList'
 
 const MatchesScreen = () => {
     // const navigation = useNavigation();
@@ -19,8 +20,9 @@ const MatchesScreen = () => {
               </View>
             ))}
           </View>
-         
+          <ChatList />
         </View>
+        
 
       </SafeAreaView>
     );

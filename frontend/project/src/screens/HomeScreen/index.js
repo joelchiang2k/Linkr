@@ -12,11 +12,18 @@ import NavigationBar from '../../components/NavigationBar'
 
 export default function HomeScreen() {
   const onSwipeLeft = (user) => {
-    console.warn("swipe left", user.name)
+    console.warn("swipe left", user)
   }
 
   const onSwipeRight = (user) => {
-    console.warn("swipe right", user.name)
+    console.warn("swipe right", user)
+
+    //Check if user swiped on you
+    // if(user['matches'].includes(myuser.id)){
+    //   //USER MATCHED
+    // }
+
+    // myuser['matches'].push(user.id)
   }
 
   return (
