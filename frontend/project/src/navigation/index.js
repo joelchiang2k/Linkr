@@ -11,6 +11,7 @@ import HomeScreen from '../screens/HomeScreen'
 import MatchesScreen from '../screens/MatchesScreen';
 import NavigationBar from '../components/NavigationBar';
 import ProfileScreen from '../screens/ProfileScreen';
+import MessagesScreen from '../screens/MessagesScreen';
 
 const Stack = createStackNavigator();
 const Navigation = () => {
@@ -43,6 +44,7 @@ const Navigation = () => {
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
             <Stack.Screen name="MatchesScreen" component={MatchesScreen} />
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+            <Stack.Screen name="MessagesScreen" component={MessagesScreen} />
         </Stack.Navigator>
         {<NavigationBar currentPage={currentPage} />}
     </NavigationContainer>

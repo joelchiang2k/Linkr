@@ -24,6 +24,10 @@ export default function HomeScreen({route}) { // Add the route prop here
     //Check if user swiped on you
     // if(user['matches'].includes(myuser.id)){
     //   //USER MATCHED
+        //  navigation.navigate('MatchesScreen', {
+        //    myProfile,
+        //    swipedProfile,
+        //  }) 
     // }
 
     // myuser['matches'].push(user.id)

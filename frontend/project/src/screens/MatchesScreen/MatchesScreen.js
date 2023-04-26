@@ -7,6 +7,12 @@ import ChatList from '../../components/ChatList'
 
 const MatchesScreen = () => {
     // const navigation = useNavigation();
+  const [matchedUsers, setMatchedUsers] = useState([]);
+
+  const onMatched = (user) => {
+    // Add the matched user to the state variable
+    setMatchedUsers([...matchedUsers, user]);
+  };
     return (
       <SafeAreaView style={styles.root}>
         <View style={styles.container}>
@@ -20,7 +26,11 @@ const MatchesScreen = () => {
               </View>
             ))}
           </View>
-          <ChatList />
+          <FlatList 
+            data={matchedUsers}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <ChatList matchesDetails={item} />}
+          />
         </View>
         
 

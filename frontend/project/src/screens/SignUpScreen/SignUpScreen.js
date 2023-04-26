@@ -72,7 +72,7 @@ const SignUpScreen = () => {
         payload.sponsorshipAvailability = sponsorshipRecruiter.toUpperCase();
       }
   
-      const response = await axios.post('http://10.186.0.39:8080/signup', payload);
+      const response = await axios.post('http://192.168.4.21:8080/signup', payload);
   
       console.log(response.data);
       navigation.navigate('ConfirmEmail', { responseData: { email: response.data } });

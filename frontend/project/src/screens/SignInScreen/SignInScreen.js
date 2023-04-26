@@ -22,7 +22,7 @@ const SignInScreen = () => {
             username: data.username,
             password: data.password
         },
-        url: `http://10.186.0.39:8080/login`
+        url: `http://192.168.4.21:8080/login`
     })
     .then((response) => {
         console.log(response.data);
@@ -30,6 +30,7 @@ const SignInScreen = () => {
           navigation.navigate('ConfirmEmail', { responseData: { email: data.username } });
         } else {
           navigation.navigate('HomeScreen', { responseData: { list: response.data.ListPeople } });
+          //how to route to different screens
         }
     })
     .catch((error) => {

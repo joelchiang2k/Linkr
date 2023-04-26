@@ -29,7 +29,7 @@ const ConfirmResetPasswordScreen = ({ route }) => {
         code: data.code,
         password: data.password,
       },
-      url: 'http://10.186.0.39:8080/resetPwd',
+      url: 'http://192.168.4.21:8080/resetPwd',
     })
       .then((response) => {
         console.log(response.data);
