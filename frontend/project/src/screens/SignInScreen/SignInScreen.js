@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView, TextInput, Alert } from 'react-native';
+import { View, Text, Image, StyleSheet, useWindowDimensions, ScrollView, TextInput } from 'react-native';
 import Logo from '../../../assets/images/link.png'
 import React, {useState} from 'react'
 import CustomInput from '../../components/CustomInput/CustomInput'
@@ -6,7 +6,6 @@ import CustomButton from '../../components/CustomButton/CustomButton'
 import { useNavigation } from '@react-navigation/native'
 import {useForm, Controller} from 'react-hook-form'
 import axios from 'axios'
-
 
 const SignInScreen = () => {
   const [username, setUsername] = useState('')
@@ -23,26 +22,19 @@ const SignInScreen = () => {
             username: data.username,
             password: data.password
         },
-        url: `http://10.186.23.102:8080/login`
+        url: `http://10.186.23.20:8080/login`
     })
     .then((response) => {
         console.log(response.data);
         if (!response.data.authenticator) {
-          Alert.alert("Authentication Failed", "Please validate your email address.", [
-            {
-              text: "OK",
-              onPress: () => navigation.navigate('ConfirmEmail', { responseData: { email: data.username } }),
-            },
-          ]);
+          navigation.navigate('ConfirmEmail', { responseData: { email: data.username } });
         } else {
-          Alert.alert("Success", "Login successful", [
-            { text: "OK", onPress: () => navigation.navigate('HomeScreen', { responseData: response.data }) },
-          ]);
+          navigation.navigate('HomeScreen', { responseData: response.data });
         }
     })
     .catch((error) => {
         if (error.response.status === 400) {
-            Alert.alert("Error", "Invalid username or password");
+            console.log("Invalid username or password");
         } else {
             console.log(error);
         }
