@@ -8,7 +8,7 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import * as OpenAnything from "react-native-openanything"
 
 const Card = (props) => {
-  const{image, bio, name, location, company, logo, title, post, authorization, role} = props.user;
+  const{image, bio, name, location, companyName, logo, title, post, authorization, desiredRole} = props.user;
   return (
     <View style={styles.card}>
         <ImageBackground source={{ uri: image,}} style={styles.image}>
@@ -16,7 +16,7 @@ const Card = (props) => {
         </ImageBackground>
         <View style={styles.cardInner}>
                 <Text style={styles.name}>{name}</Text>
-                <Text style={styles.title}>{title} @ {company}</Text>
+                <Text style={styles.title}>{title} @ {companyName}</Text>
                 <Text style={styles.bio}>{bio}</Text>
                 <Text style={styles.listItem}>
                   <FontAwesome name="circle" size={8} color="#0096FF" /> 
@@ -24,7 +24,7 @@ const Card = (props) => {
                 </Text>
                 <Text style={styles.listItem}>
                   <FontAwesome name="circle" size={8} color="#0096FF" /> 
-                  <Text style={styles.role}> Desired Role: {role}</Text>
+                  <Text style={styles.role}> Desired Role: {desiredRole}</Text>
                 </Text>
                
                 <TouchableOpacity style={styles.button} onPress={() => OpenAnything.Pdf(post)}>

@@ -13,7 +13,7 @@ import NavigationBar from '../../components/NavigationBar'
 export default function HomeScreen({route}) { // Add the route prop here
   const { list } = route.params.responseData;
   console.log('asdka');
-  console.log(list);
+  console.log("list", list);
   const onSwipeLeft = (user) => {
     console.warn("swipe left", user)
   }

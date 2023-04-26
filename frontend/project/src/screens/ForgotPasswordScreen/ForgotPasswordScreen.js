@@ -27,7 +27,7 @@ const ForgotPasswordScreen = () => {
       params: {
         username: data.username,
       },
-      url: 'http://10.186.23.20:8080/forgetPwd',
+      url: 'http://10.186.0.39:8080/forgetPwd',
     })
       .then((response) => {
         console.log(response.data);

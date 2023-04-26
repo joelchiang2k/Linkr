@@ -22,7 +22,7 @@ const SignInScreen = () => {
             username: data.username,
             password: data.password
         },
-        url: `http://10.186.23.20:8080/login`
+        url: `http://10.186.0.39:8080/login`
     })
     .then((response) => {
         console.log(response.data);
