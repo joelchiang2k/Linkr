@@ -10,7 +10,10 @@ import NavigationBar from '../../components/NavigationBar'
 
 
 
-export default function HomeScreen() {
+export default function HomeScreen({route}) { // Add the route prop here
+  const { list } = route.params.responseData;
+  console.log('asdka');
+  console.log(list);
   const onSwipeLeft = (user) => {
     console.warn("swipe left", user)
   }
@@ -29,12 +32,11 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.root}>
        <View style={styles.container}>
-        <AnimatedStack
-          data={users}
+       <AnimatedStack
+          data={list}
           renderItem={({item}) => <Card user={item} />}
           onSwipeLeft={onSwipeLeft}
           onSwipeRight={onSwipeRight}
-
         />
       </View>
     </SafeAreaView>

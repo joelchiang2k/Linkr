@@ -29,7 +29,7 @@ const SignInScreen = () => {
         if (!response.data.authenticator) {
           navigation.navigate('ConfirmEmail', { responseData: { email: data.username } });
         } else {
-          navigation.navigate('HomeScreen', { responseData: response.data });
+          navigation.navigate('HomeScreen', { responseData: { list: response.data.ListPeople } });
         }
     })
     .catch((error) => {
