@@ -10,7 +10,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-
+import org.apache.kafka.clients.admin.AdminClient;
+import org.apache.kafka.clients.admin.AdminClientConfig;
+import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.common.TopicPartitionInfo;
+import org.apache.kafka.common.PartitionInfo;
+import org.apache.kafka.common.errors.TopicExistsException;
+import org.springframework.kafka.core.KafkaTemplate;
 
 @RequiredArgsConstructor
 @RestController
@@ -18,11 +24,20 @@ public class LoginController {
 
     private final MailService mailService;
 
+    private AdminClient createAdminClient() {
+    Properties props = new Properties();
+    props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+    return AdminClient.create(props);
+}
+
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     @PostMapping(path = "/login")
     @CrossOrigin(origins = "*")
@@ -30,6 +45,24 @@ public class LoginController {
                                                      @RequestParam(value = "password") String password) {
         User user = userRepository.findUserByEmail(email);
 
+        // Create a Kafka topic for the user
+        String topicName = email;
+        try (AdminClient adminClient = createAdminClient()) {
+            NewTopic topic = new NewTopic(topicName, 1, (short)1);
+            adminClient.createTopics(Collections.singleton(topic));
+        } catch (TopicExistsException ex) {
+            // Ignore exception if topic already exists
+        }
+
+        // Send a message to the user's topic
+        kafkaTemplate.send(topicName, "Welcome to your messaging queue!");
+
+        // Partition the topic by email
+        List<PartitionInfo> partitions = kafkaTemplate.partitionsFor(topicName);
+        int numPartitions = partitions.size();
+        int partitionIndex = email.hashCode() % numPartitions;
+        kafkaTemplate.send(topicName, partitionIndex, null, "Partitioned message for user " + email);
+        
         String userType = user.getUserType();
         String passType = "";
         if (userType.equals("RECRUITER")){
