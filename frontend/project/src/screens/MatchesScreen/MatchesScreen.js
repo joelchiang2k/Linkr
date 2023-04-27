@@ -27,8 +27,39 @@ const MatchesScreen = () => {
 
   const onChatPressed = (user) => {
     console.log(user);
-    navigation.navigate('ChatScreen', { user });
+    if (pressedUsers.includes(user.email)) {
+      // User has been pressed before, call login API
+      axios.post('http://localhost:3001/chated', { username: user.username, secret })
+        .then((response) => {
+          console.log(response.data);
+          // Navigate to chat screen with user data
+          navigation.navigate('ChatScreen', { user: response.data });
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    } else {
+      // User has not been pressed before, call signup API
+      axios.post('http://localhost:3001/chat', {
+        username: user.username,
+        secret,
+        email: user.email,
+        first_name: user.first_name,
+        last_name: user.last_name
+      })
+        .then((response) => {
+          console.log(response.data);
+          // Update pressedUsers state
+          setPressedUsers([...pressedUsers, user.email]);
+          // Navigate to chat screen with user data
+          navigation.navigate('ChatScreen', { user: response.data });
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+    }
   };
+
 
   const navigation = useNavigation();
   return (

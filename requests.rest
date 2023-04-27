@@ -1,0 +1,21 @@
+
+POST http://localhost:3001/chated
+Content-Type: application/json
+
+{
+  "username": "zack",
+  "secret": "pass1234"
+}
+
+###
+
+POST http://localhost:3001/chat
+Content-Type: application/json
+
+{
+  "username": "zack",
+  "secret": "pass1234",
+  "email": "zack@gmail.com",
+  "first_name": "Zack",
+  "last_name": "Engine"
+}
