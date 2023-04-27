@@ -7,7 +7,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { useNavigation, useRoute, useNavigationContainerRef } from '@react-navigation/native'
 
 
-const NavigationBar = ({currentPage}) => {
+const NavigationBar = ({currentPage, pushEmail}) => {
   const navigation = useNavigation();
   const [activeScreen, setActiveScreen] = useState('HOME');
   const color = '#b5b5b5';
@@ -27,9 +27,9 @@ const NavigationBar = ({currentPage}) => {
           <Pressable onPress={() => {setActiveScreen('EXPLORE')}}>
             <MaterialCommunityIcons name="star-four-points" size={30} color={activeScreen == 'EXPLORE' ? goldColor : color} />
           </Pressable>
-          <Pressable onPress={() => {setActiveScreen('CHAT'); navigation.navigate('MatchesScreen')}}>
-            <Ionicons name="ios-chatbubbles" size={30} color={activeScreen == 'CHAT' ? activeColor : color} />
-          </Pressable>
+          <Pressable onPress={() => {setActiveScreen('CHAT'); navigation.navigate('MatchesScreen', { email: pushEmail })}}>
+  <Ionicons name="ios-chatbubbles" size={30} color={activeScreen == 'CHAT' ? activeColor : color} />
+</Pressable>
           <Pressable onPress={() => {setActiveScreen('USER'); navigation.navigate('ProfileScreen')}}>
             <FontAwesome name="user" size={30} color={activeScreen == 'USER' ? activeColor : color} />
           </Pressable>

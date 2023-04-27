@@ -8,26 +8,30 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import * as OpenAnything from "react-native-openanything"
 
 const Card = (props) => {
-  const{image, bio, name, location, companyName, logo, title, post, authorization, desiredRole} = props.user;
+  const { picUrl, bio, username, location, companyName, logoUrl, title, jobPostLink,resumeCvLink, sponsorshipAvailability, desiredRole, school, sponsorshipStatus } = props.user;
+  const { userType } = props;
+
   return (
     <View style={styles.card}>
-        <ImageBackground source={{ uri: image,}} style={styles.image}>
-            <Image source={{uri: logo,}} style={styles.logo}/>
+        <ImageBackground source={{ uri: picUrl,}} style={styles.image}>
+            <Image source={{uri: logoUrl,}} style={styles.logo}/>
         </ImageBackground>
         <View style={styles.cardInner}>
-                <Text style={styles.name}>{name}</Text>
-                <Text style={styles.title}>{title} @ {companyName}</Text>
+                <Text style={styles.name}>
+                  {username}
+                  <Text style={styles.title}> @ {(companyName ?? school)}</Text>
+                </Text>
                 <Text style={styles.bio}>{bio}</Text>
                 <Text style={styles.listItem}>
                   <FontAwesome name="circle" size={8} color="#0096FF" /> 
-                  <Text style={styles.work}> Work Authorization: {authorization}</Text>
+                  <Text style={styles.work}> {(userType === "RECRUITER" ? "Work Authorization" : "Sponsorship Status")}: {(sponsorshipAvailability ?? sponsorshipStatus)}</Text>
                 </Text>
                 <Text style={styles.listItem}>
                   <FontAwesome name="circle" size={8} color="#0096FF" /> 
                   <Text style={styles.role}> Desired Role: {desiredRole}</Text>
                 </Text>
                
-                <TouchableOpacity style={styles.button} onPress={() => OpenAnything.Pdf(post)}>
+                <TouchableOpacity style={styles.button} onPress={() => OpenAnything.Pdf(jobPostLink ?? resumeCvLink)}>
                   <FontAwesome name="paperclip" size={24} color="white" />
                 </TouchableOpacity>
                 
@@ -35,6 +39,7 @@ const Card = (props) => {
     </View>
   )
 }
+
 
 const styles = StyleSheet.create({
     card: {
@@ -76,10 +81,15 @@ const styles = StyleSheet.create({
       justifyContent:'flex-end',
     },
     name: {
-      fontSize: 30,
+      fontSize: 20,
       color: 'black',
       fontWeight: 'bold',
       padding: 10,
+    },
+    title: {
+      fontSize: 15,
+      fontWeight:'bold',
+      color: '#36454F',
     },
     bio: {
       fontSize: 18,
@@ -87,12 +97,7 @@ const styles = StyleSheet.create({
       lineHeight: 25,
       padding: 10,
     },
-    title: {
-      fontSize: 15,
-      padding: 10,
-      fontWeight:'bold',
-      color: '#36454F',
-    },
+
     work: {
       fontSize: 13,
       padding: 10,

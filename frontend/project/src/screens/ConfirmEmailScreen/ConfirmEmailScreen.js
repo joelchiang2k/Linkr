@@ -20,7 +20,7 @@ const ConfirmEmailScreen = ({ route }) => {
 
   const onResendPressed = async () => {
     try {
-      const response = await axios.post("http://10.186.0.39:8080/authAgain", responseData, {
+      const response = await axios.post("http://10.186.18.81:8080/authAgain", responseData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -40,7 +40,7 @@ const ConfirmEmailScreen = ({ route }) => {
     try {
       const email = responseData.email; // assuming email is a property of responseData
 
-      const response = await axios.post("http://10.186.0.39:8080/authConfirm", {
+      const response = await axios.post("http://10.186.18.81:8080/authConfirm", {
         email: email,
         keyCode: data.code,
       });
@@ -52,7 +52,7 @@ const ConfirmEmailScreen = ({ route }) => {
         [
           {
             text: 'OK',
-            onPress: () => navigation.navigate('HomeScreen'),
+            onPress: () => navigation.navigate('SignIn'),
           },
         ],
         { cancelable: false }

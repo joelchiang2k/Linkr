@@ -72,7 +72,7 @@ const SignUpScreen = () => {
         payload.sponsorshipAvailability = sponsorshipRecruiter.toUpperCase();
       }
   
-      const response = await axios.post('http://10.186.0.39:8080/signup', payload);
+      const response = await axios.post('http://10.186.18.81:8080/signup', payload);
   
       console.log(response.data);
       navigation.navigate('ConfirmEmail', { responseData: { email: response.data } });
@@ -182,12 +182,33 @@ const SignUpScreen = () => {
           control={control}
           rules={{ required: 'Location is required' }}
         />
+
+        <CustomInput
+          name="phoneNumber"
+          placeholder="phoneNumber"
+          control={control}
+          rules={{ required: 'Phone Number is required' }}
+        />
+
     
         <CustomInput
           name="desiredRole"
           placeholder="Desired Role"
           control={control}
           rules={{ required: 'Desired role is required' }}
+        />
+        <CustomInput
+          name="logoUrl"
+          placeholder="Logo URL"
+          control={control}
+          rules={{ required: 'Logo URL is required' }}
+        />
+
+        <CustomInput
+          name="picUrl"
+          placeholder="Profile Picture URL"
+          control={control}
+          rules={{ required: 'Profile Picture URL is required' }}
         />
     
         {selectedValue === 'recruiter' && (
