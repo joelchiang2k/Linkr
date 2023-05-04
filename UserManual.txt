@@ -1,0 +1,4 @@
+1. To run the application, follow the README.md instructions.
+2. Once the application is open, you will see a login page. Register your email and password and authenticate via one-time code. You have the option to be a student or recruiter.
+3. When you enter the application, you will see users in a card format, similar to Tinder. You can swipe left to reject the user, or swipe right to connect with the user.
+4. If you match with a user, you will be able to see their name and information in the matches screen. You can navigate to that page by tapping on the chat bubble icon on the navigation bar.
